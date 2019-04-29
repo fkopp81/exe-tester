@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "nexe": "nexe ./generated/webpack -o ./generated/nexe/exeTester.exe",
+    "nexe": "nexe ./build/webpack -o ./build/nexe/exeTester.exe",
     "tsc": "tsc",
-    "upx": "mkdirp ./generated/upx/ && cpx ./generated/nexe/exeTester.exe ./generated/upx/ && upx ./generated/upx/exeTester.exe",
+    "upx": "mkdirp ./build/upx/ && cpx ./build/nexe/exeTester.exe ./build/upx/ && upx ./build/upx/exeTester.exe",
     "webpack": "webpack --config ./scripts/webpack.config.js",
-    "finish": "mkdirp ./dist && "
+    "finish": "mkdirp ./dist && cpx ./build/upx/* ./dist",
+    "build": "yarn tsc && yarn webpack && yarn nexe && yarn upx && yarn finish"
   },
   "name": "exe-tester",
   "private": true,
@@ -17,5 +18,8 @@
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@types/node": "^11.13.8"
   }
 }
